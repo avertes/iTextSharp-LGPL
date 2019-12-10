@@ -226,7 +226,9 @@ namespace iTextSharp.text.pdf {
             string n1 = null;
             string n2 = null;
             int ptr = 0;
+            bool noTokens = true;
             while (NextToken()) {
+                noTokens = false;
                 if (type == TK_COMMENT)
                     continue;
                 switch (level) {
@@ -266,8 +268,12 @@ namespace iTextSharp.text.pdf {
             // if we hit here, the file is either corrupt (stream ended unexpectedly),
             // or the last token ended exactly at the end of a stream.  This last
             // case can occur inside an Object Stream.
+            if (noTokens)
+            {
+                ThrowError("Unexpected End of stream.");
+            }
         }
-    
+
         public bool NextToken() {
             int ch = 0;
             do {

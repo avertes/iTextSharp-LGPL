@@ -933,7 +933,7 @@ namespace iTextSharp.text.pdf.codec {
             while (bytesRead < imSize) {
                 int r = inputStream.Read(values, bytesRead,
                 imSize - bytesRead);
-                if (r < 0)
+                if (r <= 0)
                     break;
                 bytesRead += r;
             }
